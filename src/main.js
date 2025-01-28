@@ -4,6 +4,8 @@
 // Mods: Implement the speed increase that happens after 30 seconds in the original game (1),
 //  Implement the 'FIRE' UI text from the original game (1), 
 //  Randomize each spaceship's movement direction at the start of each play (1),
+//  Create a new scrolling tile sprite for the background (1),
+
 
 
          
