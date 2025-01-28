@@ -145,6 +145,7 @@ class Play extends Phaser.Scene {
         ship.alpha = 0
         // create explosion sprite at ship's position
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+        this.whichExp = Math.floor(Math.random() * 4)
         boom.anims.play('explode')  // play explode animation 
         boom.on('animationcomplete', () => {    //callback after anim completes
             ship.reset()    // reset ship position
@@ -155,6 +156,17 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
 
-        this.sound.play('sfx-explosion')
+        if (this.whichExp == 0) {
+            this.sound.play('sfx-explosion01')
+        }
+        if (this.whichExp == 1) {
+            this.sound.play('sfx-explosion02')
+        }
+        if (this.whichExp == 2) {
+            this.sound.play('sfx-explosion03')
+        }
+        if (this.whichExp == 3) {
+            this.sound.play('sfx-explosion04')
+        }
     }
 }

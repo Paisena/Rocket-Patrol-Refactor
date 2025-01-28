@@ -5,7 +5,8 @@
 //  Implement the 'FIRE' UI text from the original game (1), 
 //  Randomize each spaceship's movement direction at the start of each play (1),
 //  Create a new scrolling tile sprite for the background (1),
-
+//  Create 4 new explosion sound effects and randomize which one plays on impact (3)
+//
 
 
          
