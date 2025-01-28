@@ -29,8 +29,6 @@ class Play extends Phaser.Scene {
         this.ship02Dir = Math.round(Math.random() * 1)
         this.ship03Dir = Math.round(Math.random() * 1)
 
-        
-
         this.ship01 = new Spaceship(this, game.config.width * this.ship01Dir + borderUISize*6 , borderUISize*4, 'spaceship', 0, 30, this.ship01Dir).setOrigin(0, 0)
         this.ship02 = new Spaceship(this, game.config.width * this.ship02Dir + borderUISize*3 , borderUISize*5 + borderPadding*2, 'spaceship', 0, 20, this.ship02Dir).setOrigin(0, 0)
         this.ship03 = new Spaceship(this, game.config.width * this.ship03Dir, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10, this.ship03Dir).setOrigin(0, 0)
@@ -43,6 +41,7 @@ class Play extends Phaser.Scene {
 
         // initialize score
         this.p1Score = 0
+        this.timeTxt = game.settings.gameTimer / 1000
 
         // display score
         let scoreConfig = {
@@ -70,8 +69,26 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+
+        let timeConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
         this.fireUI = this.add.text(game.config.width / 2 - 50 , borderUISize + borderPadding*2, "FIRE", fireConfig)
+        this.timerUI = this.add.text(game.config.width / 2 + 50 , borderUISize + borderPadding*2, this.timeTxt, timeConfig)
+        
+
+        
         // GAME OVER flag
         this.gameOver = false
 
@@ -91,10 +108,28 @@ class Play extends Phaser.Scene {
             this.gameOver = true
         }, null, this)
 
+        this.startTime = new Date()
 
     }
 
     update() {
+
+        var currentTime = new Date();
+        var timeDifference = this.startTime.getTime() - currentTime.getTime();
+
+        if(this.timeTxt > 0)
+        {
+            this.timeElapsed = Math.abs(timeDifference / 1000);
+        }
+        if (this.timeElapsed >= 1) {
+            console.log("hi")
+            this.startTime = new Date()
+            this.timeTxt -= 1;
+            this.timerUI.text = this.timeTxt
+            this.timeElapsed = 0;
+        }
+        
+
         // check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart()
