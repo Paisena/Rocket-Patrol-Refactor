@@ -1,3 +1,10 @@
+// Name: Jonathan Ng
+// Rocket Patrol: The ReLoadening
+// Approximate Time : TODO:
+// Mods: 
+// Citation: 
+
+
 let config = {
     type: Phaser.AUTO,
     width: 640,

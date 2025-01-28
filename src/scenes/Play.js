@@ -4,6 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+        //30 second speed up variables
+        this.shipSpeedBoost = 0;
+        this.bulletSpeedBoost = 0;
+
         //place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0)
 
@@ -52,6 +57,14 @@ class Play extends Phaser.Scene {
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0
+        
+        this.speedClock = this.time.delayedCall(30000, () => {
+            this.ship01.speedUp()
+            this.ship02.speedUp()
+            this.ship03.speedUp()
+            this.p1Rocket.speedUp()
+        })
+
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5)

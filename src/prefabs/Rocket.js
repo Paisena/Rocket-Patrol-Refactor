@@ -11,6 +11,12 @@ class Rocket extends Phaser.GameObjects.Sprite {
         this.sfxShot = scene.sound.add('sfx-shot')
     }
 
+    
+    speedUp()
+    {
+        this.moveSpeed += 4
+    }
+
     update() {
         // left/right movement
         if (!this.isFiring) {
