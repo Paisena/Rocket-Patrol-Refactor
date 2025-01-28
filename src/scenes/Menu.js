@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene {
         this.load.image('spaceship', './assets/spaceship.png')
         this.load.image('starfield', './assets/starfield.png')
         this.load.image('spaceship2', './assets/Spaceship2.png')
+        this.load.image('title', './assets/TitleScreen.png')
         
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
@@ -49,12 +50,8 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        this.titleImg = this.add.sprite(640/2,480/2,'title')
         // display menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'ROCKET PATROl', menuConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2, 'Use <- -> arrows to move & (F) to fire', menuConfig).setOrigin(0.5)
-        menuConfig.backgroundColor = '#00FF00'
-        menuConfig.color = '#000'
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5)
         
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
