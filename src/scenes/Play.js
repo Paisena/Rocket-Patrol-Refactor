@@ -108,15 +108,50 @@ class Play extends Phaser.Scene {
             this.p1Rocket.speedUp()
         })
 
+        this.musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
         
+            // source of the spatial sound
+            source: {
+                x: 0,
+                y: 0,
+                z: 0,
+                panningModel: 'equalpower',
+                distanceModel: 'inverse',
+                orientationX: 0,
+                orientationY: 0,
+                orientationZ: -1,
+                refDistance: 1,
+                maxDistance: 10000,
+                rolloffFactor: 1,
+                coneInnerAngle: 360,
+                coneOuterAngle: 0,
+                coneOuterGain: 0,
+                follow: undefined
+            }
+        }
+        this.music = this.sound.add('music')
+        this.music.play(this.musicConfig)
+
+        
+        
+
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to switch teams <- for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true
+            
         }, null, this)
 
         this.startTime = new Date()
 
+        
     }
 
     update() {
@@ -139,6 +174,7 @@ class Play extends Phaser.Scene {
 
         // check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
+            this.music.stop()
             this.scene.restart()
 
         }
