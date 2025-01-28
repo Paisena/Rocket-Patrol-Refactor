@@ -5,6 +5,9 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        // two player mode
+        this.whosPlaying = false;
+
         //30 second speed up variables
         this.shipSpeedBoost = 0;
         this.bulletSpeedBoost = 0;
@@ -28,10 +31,12 @@ class Play extends Phaser.Scene {
         this.ship01Dir = Math.round(Math.random() * 1)
         this.ship02Dir = Math.round(Math.random() * 1)
         this.ship03Dir = Math.round(Math.random() * 1)
+        this.ship04Dir = Math.round(Math.random() * 1)
 
         this.ship01 = new Spaceship(this, game.config.width * this.ship01Dir + borderUISize*6 , borderUISize*4, 'spaceship', 0, 30, this.ship01Dir).setOrigin(0, 0)
         this.ship02 = new Spaceship(this, game.config.width * this.ship02Dir + borderUISize*3 , borderUISize*5 + borderPadding*2, 'spaceship', 0, 20, this.ship02Dir).setOrigin(0, 0)
         this.ship03 = new Spaceship(this, game.config.width * this.ship03Dir, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10, this.ship03Dir).setOrigin(0, 0)
+        this.ship04 = new Spaceship2(this, game.config.width * this.ship04Dir, borderUISize*6 + borderPadding*4 + 60, 'spaceship2', 0, 50, this.ship04Dir).setOrigin(0.20)
 
         // define keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -99,12 +104,14 @@ class Play extends Phaser.Scene {
             this.ship01.speedUp()
             this.ship02.speedUp()
             this.ship03.speedUp()
+            this.ship04.speedUp()
             this.p1Rocket.speedUp()
         })
 
+        
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to switch teams <- for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true
         }, null, this)
 
@@ -133,6 +140,7 @@ class Play extends Phaser.Scene {
         // check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart()
+
         }
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)){
@@ -145,10 +153,15 @@ class Play extends Phaser.Scene {
             this.ship01.update()    //update spaceship (x3)
             this.ship02.update()
             this.ship03.update()
+            this.ship04.update()
         }
         
 
         // check collisions
+        if(this.checkCollision(this.p1Rocket, this.ship04)) {
+            this.p1Rocket.reset()
+            this.shipExplode(this.ship04)
+        }
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset()
             this.shipExplode(this.ship03)
