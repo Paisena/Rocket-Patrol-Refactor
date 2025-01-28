@@ -24,9 +24,16 @@ class Play extends Phaser.Scene {
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
 
         // add spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0)
-        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0, 0)
-        this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0, 0)
+
+        this.ship01Dir = Math.round(Math.random() * 1)
+        this.ship02Dir = Math.round(Math.random() * 1)
+        this.ship03Dir = Math.round(Math.random() * 1)
+
+        
+
+        this.ship01 = new Spaceship(this, game.config.width * this.ship01Dir + borderUISize*6 , borderUISize*4, 'spaceship', 0, 30, this.ship01Dir).setOrigin(0, 0)
+        this.ship02 = new Spaceship(this, game.config.width * this.ship02Dir + borderUISize*3 , borderUISize*5 + borderPadding*2, 'spaceship', 0, 20, this.ship02Dir).setOrigin(0, 0)
+        this.ship03 = new Spaceship(this, game.config.width * this.ship03Dir, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10, this.ship03Dir).setOrigin(0, 0)
 
         // define keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -50,8 +57,21 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
 
+        let fireConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
+        this.fireUI = this.add.text(game.config.width / 2 - 50 , borderUISize + borderPadding*2, "FIRE", fireConfig)
         // GAME OVER flag
         this.gameOver = false
 
