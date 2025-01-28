@@ -1,6 +1,6 @@
 // Name: Jonathan Ng
 // Rocket Patrol: The ReLoadening
-// Approximate Time : TODO:
+// Approximate Time : 8 HR
 // Mods: Implement the speed increase that happens after 30 seconds in the original game (1),
 //  Implement the 'FIRE' UI text from the original game (1), 
 //  Randomize each spaceship's movement direction at the start of each play (1),
@@ -14,11 +14,7 @@
 
 
 //Ciataion :timer from :https://www.joshmorony.com/how-to-create-an-accurate-timer-for-phaser-games/
-
-
-         
-// Citation: 
-
+// Change volume from :https://stackoverflow.com/questions/51601926/how-to-set-volume-in-phaser-3
 
 let config = {
     type: Phaser.AUTO,

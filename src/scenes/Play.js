@@ -108,9 +108,10 @@ class Play extends Phaser.Scene {
             this.p1Rocket.speedUp()
         })
 
+        
         this.musicConfig = {
             mute: false,
-            volume: 1,
+            volume: 0.05,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -138,6 +139,8 @@ class Play extends Phaser.Scene {
         }
         this.music = this.sound.add('music')
         this.music.play(this.musicConfig)
+        
+
 
         
         
@@ -225,6 +228,10 @@ class Play extends Phaser.Scene {
     }
 
     shipExplode(ship) {
+        
+        
+        
+        
         // temporarily hide ship 
         ship.alpha = 0
         // create explosion sprite at ship's position
@@ -241,16 +248,20 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score
 
         if (this.whichExp == 0) {
-            this.sound.play('sfx-explosion01')
+            this.sfx1 = this.sound.add('sfx-explosion01', {volume: 0.1});
+            this.sfx1.play()
         }
         if (this.whichExp == 1) {
-            this.sound.play('sfx-explosion02')
+            this.sfx2 = this.sound.add('sfx-explosion02', {volume: 0.1});
+            this.sfx2.play()
         }
         if (this.whichExp == 2) {
-            this.sound.play('sfx-explosion03')
+            this.sfx3 = this.sound.add('sfx-explosion03', {volume: 0.1});
+            this.sfx3.play()
         }
         if (this.whichExp == 3) {
-            this.sound.play('sfx-explosion04')
+            this.sfx4 = this.sound.add('sfx-explosion04', {volume: 0.1});
+            this.sfx4.play()
         }
     }
 }
